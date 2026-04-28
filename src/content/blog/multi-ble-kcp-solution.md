@@ -1,3 +1,13 @@
+<<<<<<< HEAD
+=======
+---
+title: "用一条蓝牙通道同时说两件事 — 记一次 BLE 多路复用方案"
+description: "在 React Native + BLE + KCP 场景下，如何用单条蓝牙连接并发多个逻辑通道"
+pubDate: "Apr 28 2026"
+tags: ["BLE", "KCP", "React Native", "IoT"]
+---
+
+>>>>>>> 6817b0c085b783d098170afcd3c923e12e34c969
 # 用一条蓝牙通道同时说两件事 — 记一次 BLE 多路复用方案
 
 > **适用场景**：React Native + BLE + KCP 协议，需要在单条蓝牙连接上并发多个逻辑通道
