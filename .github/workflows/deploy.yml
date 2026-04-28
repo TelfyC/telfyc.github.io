@@ -38,7 +38,7 @@ jobs:
       - name: Build site
         run: pnpm build
         env:
-          BASE_URL: /ac-site-template/
+          BASE_URL: /
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

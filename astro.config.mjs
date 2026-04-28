@@ -8,7 +8,7 @@ import rehypeKatex from "rehype-katex";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://yunxinz.github.io",
+  site: "https://telfyc.github.io",
   base: process.env.BASE_URL || undefined,
   integrations: [mdx(), sitemap(), tailwind()],
   markdown: {
