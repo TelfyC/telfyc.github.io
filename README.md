@@ -4,6 +4,10 @@ English | [中文](README.zh.md)
 
 A cozy, Animal Crossing-themed personal website built with **Astro**, **TailwindCSS**, and **DaisyUI**. Features a warm cream palette, NookPhone-style sidebar navigation, light/dark mode, and charming rounded aesthetics.
 
+<p align="center">
+  <img src="docs/cover.jpg" alt="Animal Crossing Personal Site Template — light and dark mode preview" width="800">
+</p>
+
 ## Features
 
 - Animal Crossing visual style — warm colors, rounded shapes, 3D press-down buttons

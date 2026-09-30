@@ -4,6 +4,10 @@
 
 一个以《动物森友会》为主题的温馨个人网站，基于 **Astro**、**TailwindCSS** 和 **DaisyUI** 构建。拥有暖奶油色调、NookPhone 风格的侧边栏导航、明暗双主题，以及圆润可爱的整体风格。
 
+<p align="center">
+  <img src="docs/cover.jpg" alt="Animal Crossing 个人网站模板 —— 明暗双主题预览" width="800">
+</p>
+
 ## 特性
 
 - 动森视觉风格 —— 温暖配色、圆润造型、3D 按压式按钮
