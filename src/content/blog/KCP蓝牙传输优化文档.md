@@ -1,4 +1,11 @@
-# 把一根不保证送达的蓝牙通道，改造成可靠、可复用、可对账的通道
+---
+title: "KCP over BLE：把一根不保证送达的蓝牙通道，改造成可靠、可复用、可对账的通道"
+description: "在 React Native + BLE 之上引入 KCP 会话层，用重传、按需 ACK、分片重组和会话号复用，让一条蓝牙通道可靠承载多路业务，并补上接收重同步、写失败重试、死链上报与全链路丢包对账。"
+pubDate: "Oct 12 2026"
+tags: ["BLE", "KCP", "React Native", "IoT"]
+---
+
+# KCP over BLE：把一根不保证送达的蓝牙通道，改造成可靠、可复用、可对账的通道
 
 > 环境：React Native + BLE。
 > 涉及代码：`src/utils/kcp.js`、`src/utils/MultiBLETransform.js`、`src/utils/kcpDebug.js`、`src/services/DeviceControlService.js`

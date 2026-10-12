@@ -1,3 +1,10 @@
+---
+title: "教 AI 拧螺丝：一个 IoT App 的对话模块诞生记"
+description: "把大模型接进一个蓝牙工控 App：让它隔着 BLE 真能控制设备、危险操作先弹窗确认、结果以可交互卡片呈现——以及一路上踩过的坑。"
+pubDate: "Oct 12 2026"
+tags: ["AI", "IoT", "React Native", "BLE", "LLM"]
+---
+
 # 教 AI 拧螺丝：一个 IoT App 的对话模块诞生记
 
 > 别人做 AI 对话是为了聊天，我们做 AI 对话是为了让模型隔着蓝牙去拧一台真机的 16 路 IO 模块。
