@@ -2,35 +2,35 @@
 import { url } from "../config";
 ---
 
+{/* Desktop footer — pinned to the sidebar bottom by the flex column. */}
 <div
-    class="block sticky pointer-events-none bottom-10 bg-ac-cream-dark justify-center h-12 [mask-image:linear-gradient(transparent,#000000)]"
+    class="hidden lg:block shrink-0 pointer-events-none bg-ac-cream-dark justify-center h-12 [mask-image:linear-gradient(transparent,#000000)]"
 >
 </div>
 
-<!-- Theme toggle -->
-<div class="px-4 pb-2 sticky bottom-[52px] bg-ac-cream-dark">
+<div class="hidden lg:block shrink-0 px-4 pb-2 bg-ac-cream-dark">
     <button
         onclick="toggleTheme()"
         class="flex items-center gap-2 px-3 py-1.5 w-full rounded-ac-md transition-colors hover:bg-ac-sand text-sm"
         aria-label="Toggle theme"
         title="Toggle theme"
     >
-        <img id="theme-icon" src={url('leaf_light.png')} alt="" class="w-5 h-5 rounded-ac-sm" />
-        <span id="theme-label">Dark Mode</span>
+        <img src={url('leaf_dark.png')} alt="" class="w-5 h-5 rounded-ac-sm show-light" />
+        <img src={url('leaf_light.png')} alt="" class="w-5 h-5 rounded-ac-sm show-dark" />
+        <span class="show-light">Dark Mode</span>
+        <span class="show-dark">Light Mode</span>
     </button>
 </div>
 
-<div
-    class="social-icons px-4 pb-5 pt-1 flex flex-col items-start sticky bottom-0 bg-ac-cream-dark gap-1"
->
-    <a
-        href="https://github.com/yourusername"
-        target="_blank"
-        class="flex items-center gap-2 px-3 py-1.5 rounded-ac-md transition-colors hover:bg-ac-sand text-sm"
-        aria-label="GitHub"
-        title="GitHub"
+{/* Mobile footer — keep the theme control reachable on compact screens. */}
+<div class="flex lg:hidden shrink-0 items-center justify-around gap-1 bg-ac-cream-dark px-3 pt-2 pb-4">
+    <button
+        onclick="toggleTheme()"
+        class="flex items-center justify-center w-10 h-10 rounded-ac-md transition-colors hover:bg-ac-sand"
+        aria-label="Toggle theme"
+        title="Toggle theme"
     >
-        <img src={url('news.png')} alt="GitHub" class="w-5 h-5 rounded-ac-sm" />
-        <span>GitHub</span>
-    </a>
+        <img src={url('leaf_dark.png')} alt="" class="w-5 h-5 rounded-ac-sm show-light" />
+        <img src={url('leaf_light.png')} alt="" class="w-5 h-5 rounded-ac-sm show-dark" />
+    </button>
 </div>

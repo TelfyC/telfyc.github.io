@@ -5,7 +5,10 @@ import Footer from "../components/Footer.astro";
 import SideBar from "../components/SideBar.astro";
 import { ViewTransitions } from "astro:transitions";
 
-import { SITE_TITLE, SITE_DESCRIPTION, TRANSITION_API, url, BASE_PATH } from "../config";
+import { SITE_TITLE, SITE_DESCRIPTION, TRANSITION_API, url } from "../config";
+// Theme-critical CSS is inlined (not bundled) so theme correctness never
+// depends on the large shared stylesheet arriving — see theme.css.
+import themeCss from "../styles/theme.css?raw";
 
 const {
     image,
@@ -18,7 +21,7 @@ const {
 ---
 
 <!doctype html>
-<html lang="en" data-base={BASE_PATH}>
+<html lang="en">
     <head>
         <BaseHead
             title={title}
@@ -29,6 +32,7 @@ const {
         />
         {TRANSITION_API && <ViewTransitions />}
         <Fragment set:html={`<style is:inline>:root{--divider-img:url("${url('divider_line.png')}")}</style>`} />
+        <style is:inline set:html={themeCss} />
         <script is:inline>
             (function(){
                 var t = localStorage.getItem('theme');
@@ -42,18 +46,20 @@ const {
             <input id="my-drawer" type="checkbox" class="drawer-toggle" />
             <div class="drawer-content bg-base-100 rounded-tl-ac-xl relative min-h-screen flex flex-col">
                 <div class="w-full overflow-hidden pointer-events-none select-none">
-                    <img src={url('header_banner_light.png')} data-light-src={url('header_banner_light.png')} data-dark-src={url('header_banner_dark.png')} alt="" class="w-full theme-banner" />
+                    <img src={url('header_banner_light.png')} alt="" width="3840" height="195" decoding="async" class="w-full object-cover object-center h-[clamp(3rem,4vw,5rem)] lg:h-auto show-light" />
+                    <img src={url('header_banner_dark.png')} alt="" width="3840" height="195" decoding="async" class="w-full object-cover object-center h-[clamp(3rem,4vw,5rem)] lg:h-auto show-dark" />
                 </div>
                 <Header title={SITE_TITLE} />
-                <div class="md:flex md:justify-center flex-1">
-                    <main class="p-6 pt-10 lg:max-w-[900px] max-w-[100vw]">
+                <div class="md:flex md:justify-center flex-1 w-full">
+                    <main class="p-6 pt-10 w-full lg:max-w-[900px] max-w-[100vw]">
                         <slot />
                     </main>
                 </div>
                 <Footer />
 
                 <div class="w-full overflow-hidden pointer-events-none select-none flex justify-end mt-auto">
-                    <img src={url('banner_light.png')} data-light-src={url('banner_light.png')} data-dark-src={url('banner_dark.png')} alt="" class="w-full theme-banner" />
+                    <img src={url('banner_light.png')} alt="" width="3840" height="523" decoding="async" class="w-full object-cover object-right-bottom h-[clamp(5rem,11vw,15rem)] lg:h-auto show-light" />
+                    <img src={url('banner_dark.png')} alt="" width="3840" height="521" decoding="async" class="w-full object-cover object-right-bottom h-[clamp(5rem,11vw,15rem)] lg:h-auto show-dark" />
                 </div>
             </div>
             {
@@ -63,32 +69,26 @@ const {
             }
         </div>
         <script is:inline>
-            var __BASE__ = document.documentElement.getAttribute('data-base') || '/';
-            function applyTheme(theme) {
-                document.documentElement.setAttribute('data-theme', theme);
-                localStorage.setItem('theme', theme);
-                document.querySelectorAll('.theme-banner').forEach(function(el) {
-                    el.src = theme === 'night' ? el.getAttribute('data-dark-src') : el.getAttribute('data-light-src') || el.src.replace('_dark', '_light');
-                });
-                var icon = document.getElementById('theme-icon');
-                var label = document.getElementById('theme-label');
-                if (icon) icon.src = theme === 'night' ? __BASE__ + 'leaf_light.png' : __BASE__ + 'leaf_dark.png';
-                if (label) label.textContent = theme === 'night' ? 'Light Mode' : 'Dark Mode';
-            }
+            // Theme visuals (banners, toggle icon/label) are pure CSS via
+            // .show-light/.show-dark + [data-theme], so this only flips the attribute.
             window.toggleTheme = function() {
-                var current = document.documentElement.getAttribute('data-theme') || 'nord';
-                applyTheme(current === 'night' ? 'nord' : 'night');
+                var next = document.documentElement.getAttribute('data-theme') === 'night' ? 'nord' : 'night';
+                document.documentElement.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
             };
-            // init on load
-            (function(){
-                var t = localStorage.getItem('theme') || document.documentElement.getAttribute('data-theme') || 'nord';
-                applyTheme(t);
-            })();
-            // re-apply after Astro View Transitions page swap
-            document.addEventListener('astro:after-swap', function() {
-                var t = localStorage.getItem('theme') || 'nord';
-                applyTheme(t);
-            });
+            // Re-apply after Astro View Transitions page swap: the swap replaces
+            // <html> attributes with the fetched document's, which has no
+            // data-theme (it is only ever set at runtime), so re-derive it the
+            // same way the <head> script does. This inline script re-runs on
+            // every navigation, so guard against duplicate listeners.
+            if (!window.__themeSwapBound) {
+                window.__themeSwapBound = true;
+                document.addEventListener('astro:after-swap', function() {
+                    var t = localStorage.getItem('theme');
+                    if (!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'nord';
+                    document.documentElement.setAttribute('data-theme', t);
+                });
+            }
         </script>
     </body>
 </html>
